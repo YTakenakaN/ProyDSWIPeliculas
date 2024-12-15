@@ -1,0 +1,66 @@
+﻿@model ProyDSWIPeliculas.Models.Peliculas
+
+@{
+    ViewData["Title"] = "DetailsPeliculas";
+}
+
+<h1>Detalle Película</h1>
+
+<div>
+    <h4>Pelicula</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cod_peli)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cod_peli)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nom_peli)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nom_peli)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.desc_peli)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.desc_peli)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.anio_peli)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.anio_peli)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.nom_idio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.nom_idio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.dur_peli)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.dur_peli)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.pre_peli)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.pre_peli)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.stk_peli)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.stk_peli)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new {  }) |
+    <a asp-action="IndexPeliculas">Regresar a Listado</a>
+</div>

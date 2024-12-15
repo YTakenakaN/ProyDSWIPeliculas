@@ -1,0 +1,72 @@
+﻿@model ProyDSWIPeliculas.Models.Peliculas
+
+@{
+    ViewData["Title"] = "CreatePeliculas";
+}
+
+<h1>Nueva Película</h1>
+
+<h4>Peliculas</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreatePeliculas">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div style="display:none;">
+                <label asp-for="cod_peli" class="control-label"></label>
+                <input asp-for="cod_peli" class="form-control" value="0" />
+                <span asp-validation-for="cod_peli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nom_peli" class="control-label"></label>
+                <input asp-for="nom_peli" class="form-control" />
+                <span asp-validation-for="nom_peli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="desc_peli" class="control-label"></label>
+                <input asp-for="desc_peli" class="form-control" />
+                <span asp-validation-for="desc_peli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="anio_peli" class="control-label"></label>
+                <input asp-for="anio_peli" class="form-control" />
+                <span asp-validation-for="anio_peli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="cod_idio" class="control-label"></label>
+                @Html.DropDownList("cod_idio", (SelectList)ViewBag.idiomas,
+                         "Seleccione", new { @class = "form-select" }
+                         )
+                <span asp-validation-for="cod_idio" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="dur_peli" class="control-label"></label>
+                <input asp-for="dur_peli" class="form-control" />
+                <span asp-validation-for="dur_peli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="pre_peli" class="control-label"></label>
+                <input asp-for="pre_peli" class="form-control" />
+                <span asp-validation-for="pre_peli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="stk_peli" class="control-label"></label>
+                <input asp-for="stk_peli" class="form-control" />
+                <span asp-validation-for="stk_peli" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Grabar" class="btn btn-primary" />
+                <a asp-action="IndexPeliculas">Regresar a listado</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <h4><strong>@ViewBag.mensaje</strong></h4>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
