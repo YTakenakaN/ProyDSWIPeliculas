@@ -1,0 +1,64 @@
+
+----------------------------
+--- PROCEDIMIENTOS
+----------------------------
+
+CREATE PROCEDURE PA_LISTAR_PELICULAS
+AS
+BEGIN
+    SELECT 
+        p.cod_peli,
+        p.nom_peli,
+        p.desc_peli,
+		p.anio_peli,
+		P.cod_idio,
+        i.nom_idio,
+        p.dur_peli,
+        p.pre_peli,
+        p.stk_peli
+    FROM Peliculas p
+    INNER JOIN Idiomas i
+        ON p.cod_idio = i.cod_idio;
+END;
+GO
+
+CREATE PROCEDURE PA_LISTAR_IDIOMAS
+AS
+BEGIN
+    SELECT cod_idio, nom_idio
+    FROM Idiomas
+END;
+GO
+
+CREATE PROCEDURE PA_GRABAR_PELICULA
+	@cod_peli INT,
+    @nom_peli NVARCHAR(128),       
+    @desc_peli NVARCHAR(1000),     
+    @anio_peli INT,   
+    @cod_idio INT,
+    @dur_peli INT,                 
+    @pre_peli DECIMAL(10,2),       
+    @stk_peli INT                  
+AS
+BEGIN
+    IF @cod_peli <>0
+    BEGIN
+        UPDATE Peliculas
+        SET 
+            nom_peli = @nom_peli,
+            desc_peli = @desc_peli,
+            cod_idio = @cod_idio,
+            anio_peli = @anio_peli,
+            dur_peli = @dur_peli,
+            pre_peli = @pre_peli,
+            stk_peli = @stk_peli
+        WHERE cod_peli = @cod_peli;
+
+    END
+    ELSE
+		BEGIN
+        INSERT INTO Peliculas (nom_peli, desc_peli, cod_idio, anio_peli, dur_peli, pre_peli, stk_peli)
+        VALUES (@nom_peli, @desc_peli, @cod_idio, @anio_peli, @dur_peli, @pre_peli, @stk_peli);
+    END
+END
+GO

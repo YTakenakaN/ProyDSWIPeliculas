@@ -1,0 +1,54 @@
+-------------------------------------
+--- BASE DE DATOS ---
+-------------------------------------
+
+CREATE DATABASE BD_DSWI_PELICULAS;
+GO
+
+USE BD_DSWI_PELICULAS;
+GO
+
+CREATE TABLE Idiomas
+(
+    cod_idio INT IDENTITY(1,1) PRIMARY KEY,
+    nom_idio VARCHAR(20) NOT NULL
+);
+GO
+
+CREATE TABLE Peliculas
+(
+    cod_peli INT IDENTITY(1,1) PRIMARY KEY,
+    nom_peli VARCHAR(128) NOT NULL,
+    desc_peli VARCHAR(1000) DEFAULT NULL,
+    cod_idio INT NOT NULL,
+	anio_peli INT NOT NULL,
+    dur_peli INT DEFAULT NULL,
+    pre_peli DECIMAL(10,2) NOT NULL DEFAULT 4.99,
+	stk_peli INT NOT NULL,
+    FOREIGN KEY (cod_idio) REFERENCES Idiomas(cod_idio)
+);
+GO
+
+INSERT INTO Idiomas (nom_idio) VALUES 
+('Ingles'),
+('Italiano'),
+('Espanol'),
+('Japones'),
+('Frances'),
+('Aleman');
+GO
+
+INSERT INTO Peliculas (nom_peli, desc_peli, cod_idio, anio_peli, dur_peli, pre_peli,stk_peli) VALUES
+('El Misterio del Lago', 'Un thriller lleno de intriga y secretos oscuros.',  1,2020, 120, 4.99,15),
+('Bajo el Cielo Estrellado', 'Una conmovedora historia de amor y redención.', 2, 2021, 110, 5.99,16),
+('El Último Guerrero', 'Un héroe lucha por la justicia en tiempos difíciles.', 3,2019,  100, 3.99,8),
+('Sombras de la Ciudad', 'Un detective enfrenta los peligros del crimen urbano.',4, 2022, 130, 6.99,12),
+('El Viaje de Luna', 'Una aventura mágica hacia tierras desconocidas.',  5,2018, 140, 4.99,17),
+('Ecos del Pasado', 'Un hombre descubre secretos familiares inesperados.',  6, 2021,150, 7.99,0),
+('Destino en el Desierto', 'Una búsqueda épica en medio de dunas infinitas.',1, 2020,  90, 4.99,4),
+('Melodía Infinita', 'Un músico lucha por cumplir sus sueños.', 1,2017,  80, 3.99,8),
+('El Rescate Imposible', 'Un equipo se enfrenta a desafíos extremos para salvar vidas.', 3,2023, 160, 8.99,17),
+('Bajo el Fuego', 'Una crónica de valentía en tiempos de guerra.', 4, 2020, 120, 5.49,20)
+GO
+
+SELECT * FROM Peliculas
