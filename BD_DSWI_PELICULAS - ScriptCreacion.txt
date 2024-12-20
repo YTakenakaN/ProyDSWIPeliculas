@@ -61,3 +61,22 @@ INSERT INTO Peliculas (nom_peli, desc_peli, cod_idio, anio_peli, dur_peli, pre_p
 GO
 
 SELECT * FROM Peliculas
+
+
+CREATE TABLE Sales (
+    sale_id INT IDENTITY(1,1) PRIMARY KEY,
+    order_number INT NOT NULL,
+    cod_peli INT NOT NULL,
+    cantidad INT NOT NULL CHECK (cantidad > 0),
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    card_number CHAR(16) NOT NULL,
+    card_expiry DATE NOT NULL,
+    card_cvv CHAR(3) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    sale_date DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (cod_peli) REFERENCES Peliculas(cod_peli)
+);
+GO
+
+SELECT * FROM Sales

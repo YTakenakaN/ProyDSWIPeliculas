@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ProyDSWIPeliculas.Models.Sale>
+
+@{
+    ViewData["Title"] = "Historial de Compras";
+}
+
+<h1 class="text-center my-4">Historial de Compras</h1>
+
+<div class="d-flex flex-wrap justify-content-center gap-4">
+    @foreach (var item in Model)
+    {
+        <div class="card shadow-sm" style="width: 48%;">
+            <div class="card-body">
+                <h5 class="card-title">Orden #@item.OrderNumber</h5>
+                <p class="card-text">
+                    <strong>Película:</strong> @item.Nombre<br />
+                    <strong>Cantidad:</strong> @item.Cantidad<br />
+                    <strong>Precio Unitario:</strong> @item.Precio<br />
+                    <strong>Total:</strong> @item.Total
+                </p>
+                <hr />
+                <p class="card-text">
+                    <strong>Comprador:</strong> @item.FirstName @item.LastName<br />
+                    <strong>Dirección:</strong> @item.Address<br />
+                    <strong>Fecha de Compra:</strong> @item.SaleDate.ToShortDateString()
+                </p>
+            </div>
+        </div>
+    }
+</div>
