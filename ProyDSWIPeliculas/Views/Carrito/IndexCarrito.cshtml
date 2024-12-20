@@ -1,0 +1,52 @@
+﻿@model List<ProyDSWIPeliculas.Models.CarritoItem>
+
+<h2>Carrito de Compras</h2>
+
+@if (TempData["mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["mensaje"]</div>
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CodPeli</td>
+                <td>@item.Nombre</td>
+                <td>@item.Cantidad</td>
+                <td>@item.Precio.ToString("C")</td>
+                <td>@item.Subtotal.ToString("C")</td>
+                <td>
+                    <form asp-action="EditarCantidadCarrito" method="post" style="display:inline;">
+                        <input type="hidden" name="codPeli" value="@item.CodPeli" />
+                        <input type="number" name="nuevaCantidad" value="@item.Cantidad" min="1" />
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </form>
+
+                    <form asp-action="EliminarDelCarrito" method="post" style="display:inline;">
+                        <input type="hidden" name="codPeli" value="@item.CodPeli" />
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Peliculas" asp-action="IndexPeliculas" class="btn btn-secondary">Volver al Catálogo</a>
