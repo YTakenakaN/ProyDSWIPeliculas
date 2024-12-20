@@ -92,7 +92,21 @@ namespace ProyDSWIPeliculas.DAO
             }
         }
 
-
+        public string EliminarPelicula(int codPeli)
+        {
+            try
+            {
+                SqlHelper.ExecuteNonQuery(cad_cn, "PA_ELIMINAR_PELICULA",
+                   codPeli);
+         
+                
+                return "Pelicula Eliminada";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 
 }

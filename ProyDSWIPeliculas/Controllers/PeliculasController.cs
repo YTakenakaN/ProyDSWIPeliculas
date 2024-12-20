@@ -91,25 +91,13 @@ namespace ProyDSWIPeliculas.Controllers
             }
         }
 
-        // GET: PeliculasController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
+            TempData["mensaje"] = dao.EliminarPelicula(id);
 
-        // POST: PeliculasController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            return RedirectToAction(nameof(IndexPeliculas));
+         }
+
+      
     }
 }

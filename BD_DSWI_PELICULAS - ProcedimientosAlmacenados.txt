@@ -124,3 +124,12 @@ BEGIN
     FROM Carrito c
     INNER JOIN Peliculas p ON c.cod_peli = p.cod_peli;
 END;
+
+
+CREATE OR ALTER PROCEDURE PA_ELIMINAR_PELICULA
+	@cod_peli INT               
+AS
+BEGIN
+    DELETE FROm Peliculas WHERE cod_peli = @cod_peli;
+END
+GO
