@@ -62,3 +62,65 @@ BEGIN
     END
 END
 GO
+
+
+CREATE OR ALTER PROCEDURE PA_AGREGAR_AL_CARRITO
+    @cod_peli INT,
+    @cantidad INT
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM Carrito WHERE cod_peli = @cod_peli)
+    BEGIN
+        -- Incrementar la cantidad
+        UPDATE Carrito
+        SET cantidad = cantidad + @cantidad
+        WHERE cod_peli = @cod_peli;
+    END
+    ELSE
+    BEGIN
+        -- Insertar nueva película
+        INSERT INTO Carrito (cod_peli, cantidad)
+        VALUES (@cod_peli, @cantidad);
+    END
+END;
+
+CREATE OR ALTER PROCEDURE PA_EDITAR_CANTIDAD_CARRITO
+    @cod_peli INT,
+    @nueva_cantidad INT
+AS
+BEGIN
+    IF @nueva_cantidad = 0
+    BEGIN
+        -- Eliminar del carrito si la cantidad es 0
+        DELETE FROM Carrito
+        WHERE cod_peli = @cod_peli;
+    END
+    ELSE
+    BEGIN
+        -- Actualizar la cantidad
+        UPDATE Carrito
+        SET cantidad = @nueva_cantidad
+        WHERE cod_peli = @cod_peli;
+    END
+END;
+
+CREATE OR ALTER PROCEDURE PA_ELIMINAR_DEL_CARRITO
+    @cod_peli INT
+AS
+BEGIN
+    DELETE FROM Carrito
+    WHERE cod_peli = @cod_peli;
+END;
+
+CREATE OR ALTER PROCEDURE PA_LISTAR_CARRITO
+AS
+BEGIN
+    SELECT 
+        c.cod_peli,
+        p.nom_peli,
+        c.cantidad,
+        p.pre_peli,
+        (c.cantidad * p.pre_peli) AS subtotal
+    FROM Carrito c
+    INNER JOIN Peliculas p ON c.cod_peli = p.cod_peli;
+END;

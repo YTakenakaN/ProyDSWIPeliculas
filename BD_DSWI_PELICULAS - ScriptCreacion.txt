@@ -15,6 +15,7 @@ CREATE TABLE Idiomas
 );
 GO
 
+
 CREATE TABLE Peliculas
 (
     cod_peli INT IDENTITY(1,1) PRIMARY KEY,
@@ -28,6 +29,14 @@ CREATE TABLE Peliculas
     FOREIGN KEY (cod_idio) REFERENCES Idiomas(cod_idio)
 );
 GO
+
+
+CREATE TABLE Carrito (
+    cod_peli INT NOT NULL,
+    cantidad INT NOT NULL CHECK (cantidad > 0),
+    PRIMARY KEY (cod_peli),
+    FOREIGN KEY (cod_peli) REFERENCES Peliculas(cod_peli)
+);
 
 INSERT INTO Idiomas (nom_idio) VALUES 
 ('Ingles'),
