@@ -1,73 +1,52 @@
 ﻿@model IEnumerable<ProyDSWIPeliculas.Models.Peliculas>
 
 @{
-    ViewData["Title"] = "IndexPeliculas";
+    ViewData["Title"] = "Listado de Películas";
 }
 
-<h1>Listado de películas</h1>
+<h1 class="text-center">Listado de Películas</h1>
+<p class="text-muted text-center">Consulta y administra las películas disponibles en el catálogo.</p>
 
 @if (TempData["mensaje"] != null)
 {
-    <div class="alert alert-info">
-        <h4><strong>@TempData["mensaje"]</strong></h4>
+    <div class="alert alert-success">
+        <strong>@TempData["mensaje"]</strong>
     </div>
 }
 
-<p>
-    <a asp-action="CreatePeliculas">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<div class="d-flex justify-content-between align-items-center my-3">
+    <h4 class="text-primary">Películas Registradas</h4>
+    <a asp-action="CreatePeliculas" class="btn btn-primary">Agregar Nueva Película</a>
+</div>
+
+<table class="table table-striped table-hover shadow">
+    <thead class="table-primary">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.cod_peli)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nom_peli)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.anio_peli)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nom_idio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.pre_peli)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.stk_peli)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.cod_peli)</th>
+            <th>@Html.DisplayNameFor(model => model.nom_peli)</th>
+            <th>@Html.DisplayNameFor(model => model.anio_peli)</th>
+            <th>@Html.DisplayNameFor(model => model.nom_idio)</th>
+            <th>@Html.DisplayNameFor(model => model.pre_peli)</th>
+            <th>@Html.DisplayNameFor(model => model.stk_peli)</th>
+            <th class="text-center">Acciones</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.cod_peli)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nom_peli)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.anio_peli)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nom_idio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.pre_peli)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.stk_peli)
-            </td>
-            <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.cod_peli }) |
-                    @Html.ActionLink("Detalle", "DetailsPeliculas",
-                             new { id = item.cod_peli }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.cod_peli })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.cod_peli)</td>
+                <td>@Html.DisplayFor(modelItem => item.nom_peli)</td>
+                <td>@Html.DisplayFor(modelItem => item.anio_peli)</td>
+                <td>@Html.DisplayFor(modelItem => item.nom_idio)</td>
+                <td>@Html.DisplayFor(modelItem => item.pre_peli)</td>
+                <td>@Html.DisplayFor(modelItem => item.stk_peli)</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.cod_peli" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="DetailsPeliculas" asp-route-id="@item.cod_peli" class="btn btn-info btn-sm">Detalle</a>
+                    <a asp-action="Delete" asp-route-id="@item.cod_peli" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
