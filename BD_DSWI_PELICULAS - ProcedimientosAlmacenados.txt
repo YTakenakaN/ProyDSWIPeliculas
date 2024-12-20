@@ -63,6 +63,43 @@ BEGIN
 END
 GO
 
+CREATE OR ALTER PROCEDURE PA_ACTUALIZAR_PELICULA
+    @cod_peli INT,
+    @nom_peli NVARCHAR(128),       
+    @desc_peli NVARCHAR(1000),     
+    @anio_peli INT,   
+    @cod_idio INT,
+    @dur_peli INT,                 
+    @pre_peli DECIMAL(10,2),       
+    @stk_peli INT                  
+AS
+BEGIN
+    -- Verificar que el código de la película no sea nulo o cero
+    IF @cod_peli IS NULL OR @cod_peli = 0
+    BEGIN
+        RAISERROR ('El código de la película es obligatorio para actualizar.', 16, 1);
+        RETURN;
+    END
+
+    -- Actualizar la película
+    UPDATE Peliculas
+    SET 
+        nom_peli = @nom_peli,
+        desc_peli = @desc_peli,
+        anio_peli = @anio_peli,
+        cod_idio = @cod_idio,
+        dur_peli = @dur_peli,
+        pre_peli = @pre_peli,
+        stk_peli = @stk_peli
+    WHERE cod_peli = @cod_peli;
+
+    -- Verificar si se realizó la actualización
+    IF @@ROWCOUNT = 0
+    BEGIN
+        RAISERROR ('No se encontró una película con el código proporcionado.', 16, 1);
+    END
+END;
+GO
 
 CREATE OR ALTER PROCEDURE PA_AGREGAR_AL_CARRITO
     @cod_peli INT,
