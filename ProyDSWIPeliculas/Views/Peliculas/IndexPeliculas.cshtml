@@ -42,7 +42,7 @@
                 <td>@Html.DisplayFor(modelItem => item.pre_peli)</td>
                 <td>@Html.DisplayFor(modelItem => item.stk_peli)</td>
                 <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.cod_peli" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="EditPelicula" asp-route-id="@item.cod_peli" class="btn btn-warning btn-sm">Editar</a>
                     <a asp-action="DetailsPeliculas" asp-route-id="@item.cod_peli" class="btn btn-info btn-sm">Detalle</a>
                     <a asp-action="Delete" asp-route-id="@item.cod_peli" class="btn btn-danger btn-sm">Eliminar</a>
                 </td>

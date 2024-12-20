@@ -1,0 +1,78 @@
+﻿@model ProyDSWIPeliculas.Models.Peliculas
+
+@{
+    ViewData["Title"] = "Editar Película";
+}
+
+<h1 class="text-center">Editar Película</h1>
+<p class="text-muted text-center">Actualice la información requerida para modificar los detalles de la película.</p>
+
+<div class="card shadow mt-4">
+    <div class="card-body">
+        <form asp-action="EditPelicula">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
+
+            <input asp-for="cod_peli" type="hidden" />
+
+            <div class="mb-3">
+                <label asp-for="nom_peli" class="form-label">Nombre de la Película</label>
+                <input asp-for="nom_peli" class="form-control" placeholder="Ingrese el nombre de la película" />
+                <span asp-validation-for="nom_peli" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="desc_peli" class="form-label">Descripción</label>
+                <textarea asp-for="desc_peli" class="form-control" rows="3" placeholder="Ingrese una breve descripción"></textarea>
+                <span asp-validation-for="desc_peli" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="anio_peli" class="form-label">Año de Lanzamiento</label>
+                <input asp-for="anio_peli" class="form-control" type="number" placeholder="Ingrese el año de lanzamiento" />
+                <span asp-validation-for="anio_peli" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="cod_idio" class="form-label">Idioma</label>
+                @Html.DropDownList("cod_idio", (SelectList)ViewBag.idiomas, "Seleccione un idioma", new { @class = "form-select" })
+                <span asp-validation-for="cod_idio" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="dur_peli" class="form-label">Duración (en minutos)</label>
+                <input asp-for="dur_peli" class="form-control" type="number" placeholder="Ingrese la duración de la película" />
+                <span asp-validation-for="dur_peli" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="pre_peli" class="form-label">Precio de Alquiler</label>
+                <input asp-for="pre_peli" class="form-control" type="number" step="0.01" placeholder="Ingrese el precio de alquiler" />
+                <span asp-validation-for="pre_peli" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="stk_peli" class="form-label">Stock Disponible</label>
+                <input asp-for="stk_peli" class="form-control" type="number" placeholder="Ingrese la cantidad en stock" />
+                <span asp-validation-for="stk_peli" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a asp-action="IndexPeliculas" class="btn btn-secondary">Regresar al Listado</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (ViewBag.mensaje != null)
+{
+    <div class="alert alert-success mt-4">
+        <strong>@ViewBag.mensaje</strong>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
