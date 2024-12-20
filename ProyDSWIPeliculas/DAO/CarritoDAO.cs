@@ -9,7 +9,7 @@ namespace ProyDSWIPeliculas.DAO
 
         public CarritoDAO(IConfiguration cfg)
         {
-            cad_cn = cfg.GetConnectionString("cn1");
+            cad_cn = cfg.GetConnectionString("cn2");
         }
 
         public void AgregarAlCarrito(int codPeli, int cantidad)

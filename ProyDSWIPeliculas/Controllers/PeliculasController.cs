@@ -44,6 +44,49 @@ namespace ProyDSWIPeliculas.Controllers
 
         }
 
+        // GET: PeliculasController/Edit/5
+        public ActionResult EditPelicula(int id)
+        {
+            var pelicula = dao.BuscarPelicula(id);
+            if (pelicula == null)
+            {
+                TempData["mensaje"] = "Película no encontrada.";
+                return RedirectToAction(nameof(IndexPeliculas));
+            }
+
+            ViewBag.idiomas = new SelectList(
+                dao.traerIdiomas(), "cod_idio", "nom_idio");
+            //
+            return View(pelicula);
+
+        }
+
+        // POST: PeliculasController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPelicula(Peliculas obj)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    TempData["mensaje"] =
+                        dao.GrabarPeliculas(obj, 2);
+                }
+                return RedirectToAction(nameof(IndexPeliculas));
+            }
+            catch (Exception ex)
+            {
+                ViewBag.mensaje = ex.Message;
+            }
+            //
+            ViewBag.idiomas = new SelectList(
+                 dao.traerIdiomas(), "cod_idio", "nom_idio");
+            //
+            return View(obj);
+
+        }
+
         // POST: PeliculasController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -68,27 +111,6 @@ namespace ProyDSWIPeliculas.Controllers
             //
             return View(obj);
 
-        }
-
-        // GET: PeliculasController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: PeliculasController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         public ActionResult Delete(int id)

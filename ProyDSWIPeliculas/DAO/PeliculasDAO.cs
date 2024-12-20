@@ -11,7 +11,7 @@ namespace ProyDSWIPeliculas.DAO
 
         public PeliculasDAO(IConfiguration cfg)
         {
-            cad_cn = cfg.GetConnectionString("cn1");
+            cad_cn = cfg.GetConnectionString("cn2");
 
         }
 
@@ -70,25 +70,34 @@ namespace ProyDSWIPeliculas.DAO
 
         public string GrabarPeliculas(Peliculas obj, int opc)
         {
-
             try
             {
-                SqlHelper.ExecuteNonQuery(cad_cn, "PA_GRABAR_PELICULA",
-                    obj.cod_peli,obj.nom_peli, obj.desc_peli,
-                    obj.anio_peli, obj.cod_idio, obj.dur_peli,
-                    obj.pre_peli, obj.stk_peli);
-                string mensaje = $"La nueva película: {obj.nom_peli}\n" +
-                "ha sido registrado con éxito";
-                //
-                if (opc == 2)
-                    mensaje = $"La pelicula con el código: {obj.cod_peli}\n" +
-                    "ha sido actualizado con éxito";
-                //
-                return mensaje;
+                if (opc == 1)
+                {
+                    SqlHelper.ExecuteNonQuery(cad_cn, "PA_GRABAR_PELICULA",
+                        obj.cod_peli, obj.nom_peli, obj.desc_peli,
+                        obj.anio_peli, obj.cod_idio, obj.dur_peli,
+                        obj.pre_peli, obj.stk_peli);
+
+                    return $"La nueva película: {obj.nom_peli}\nha sido registrada con éxito.";
+                }
+                else if (opc == 2)
+                {
+                    SqlHelper.ExecuteNonQuery(cad_cn, "PA_ACTUALIZAR_PELICULA",
+                        obj.cod_peli, obj.nom_peli, obj.desc_peli,
+                        obj.anio_peli, obj.cod_idio, obj.dur_peli,
+                        obj.pre_peli, obj.stk_peli);
+
+                    return $"La película con el código: {obj.cod_peli}\nha sido actualizada con éxito.";
+                }
+                else
+                {
+                    return "Operación inválida. El valor de 'opc' debe ser 1 (registrar) o 2 (actualizar).";
+                }
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                return $"Error: {ex.Message}";
             }
         }
 
