@@ -21,11 +21,24 @@ namespace ProyDSWIPeliculas.Controllers
         }
 
         // GET: CarritoController/Agregar
-        public ActionResult AgregarAlCarrito(int codPeli)
+        public ActionResult AgregarAlCarrito(int codPeli, int cantidad)
         {
-            // Agrega una película al carrito con cantidad inicial de 1
-            carritoDAO.AgregarAlCarrito(codPeli, 1);
-            TempData["mensaje"] = "Película agregada al carrito correctamente.";
+            try
+            {
+                if (cantidad <= 0)
+                {
+                    ViewBag.Error = "La cantidad debe ser mayor a 0.";
+                    return RedirectToAction("DetailsPeliculas", "Peliculas", new { id = codPeli });
+                }
+
+                carritoDAO.AgregarAlCarrito(codPeli, cantidad);
+                TempData["mensaje"] = "Película agregada al carrito correctamente.";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Hubo un problema al agregar la película al carrito: " + ex.Message;
+            }
+
             return RedirectToAction("IndexCarrito");
         }
 
