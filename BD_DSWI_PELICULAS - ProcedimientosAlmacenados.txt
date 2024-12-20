@@ -170,3 +170,73 @@ BEGIN
     DELETE FROm Peliculas WHERE cod_peli = @cod_peli;
 END
 GO
+
+CREATE PROCEDURE PA_REGISTRAR_VENTA
+    @order_number INT,
+    @cod_peli INT,
+    @cantidad INT,
+    @first_name VARCHAR(50),
+    @last_name VARCHAR(50),
+    @card_number CHAR(16),
+    @card_expiry DATE,
+    @card_cvv CHAR(3),
+    @address VARCHAR(255)
+AS
+BEGIN
+    BEGIN TRANSACTION;
+
+    -- Verificar que haya suficiente stock
+    IF EXISTS (SELECT 1 FROM Peliculas WHERE cod_peli = @cod_peli AND stk_peli >= @cantidad)
+    BEGIN
+        -- Insertar la venta en la tabla Sales
+        INSERT INTO Sales (order_number, cod_peli, cantidad, first_name, last_name, card_number, card_expiry, card_cvv, address)
+        VALUES (@order_number, @cod_peli, @cantidad, @first_name, @last_name, @card_number, @card_expiry, @card_cvv, @address);
+
+        -- Actualizar el stock de la película
+        UPDATE Peliculas
+        SET stk_peli = stk_peli - @cantidad
+        WHERE cod_peli = @cod_peli;
+
+        COMMIT TRANSACTION;
+
+        PRINT 'Venta registrada exitosamente.';
+    END
+    ELSE
+    BEGIN
+        ROLLBACK TRANSACTION;
+        PRINT 'Error: Stock insuficiente para la película seleccionada.';
+    END
+END;
+GO
+
+EXEC PA_REGISTRAR_VENTA
+    @order_number = 1005,
+    @cod_peli = 5,
+    @cantidad = 1,
+    @first_name = 'Andrea',
+    @last_name = 'Pirlo',
+    @card_number = '11111111111',
+    @card_expiry = '2023-12-31',
+    @card_cvv = '111',
+    @address = 'PERU';
+
+CREATE PROCEDURE PA_LISTAR_VENTAS
+AS
+BEGIN
+    SELECT 
+        s.sale_id,
+        s.order_number,
+        s.cod_peli,
+        p.nom_peli AS nombre,
+        s.cantidad,
+        p.pre_peli AS precio,
+        s.first_name,
+        s.last_name,
+        s.address,
+        s.sale_date,
+        (s.cantidad * p.pre_peli) AS total
+    FROM Sales s
+    INNER JOIN Peliculas p ON s.cod_peli = p.cod_peli;
+END;
+GO
+

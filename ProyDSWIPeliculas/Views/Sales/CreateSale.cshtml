@@ -1,0 +1,97 @@
+﻿@model ProyDSWIPeliculas.Models.Sale
+
+@{
+    ViewData["Title"] = "Registrar Compra";
+    var carrito = ViewBag.Carrito as List<ProyDSWIPeliculas.Models.CarritoItem>;
+}
+
+<h1 class="text-center my-4">Registrar Compra</h1>
+<p class="text-muted text-center">Revise los detalles del carrito y complete la información del comprador para procesar la compra.</p>
+
+<div class="card shadow mt-4">
+    <div class="card-body">
+        <!-- Detalles del Carrito -->
+        <h5>Detalles del Carrito</h5>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Película</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in carrito)
+                {
+                    <tr>
+                        <td>@item.Nombre</td>
+                        <td>@item.Cantidad</td>
+                        <td>S/ @item.Precio</td>
+                        <td>S/ @item.Subtotal</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Total</strong></td>
+                    <td>
+                        S/ @carrito.Sum(x => x.Subtotal)
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- Formulario para la Información del Comprador -->
+<div class="card shadow mt-4">
+    <div class="card-body">
+        <form asp-action="CreateSale">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
+
+            <h5 class="mt-4">Información del Comprador</h5>
+            <div class="mb-3">
+                <label asp-for="FirstName" class="form-label">Nombre</label>
+                <input asp-for="FirstName" class="form-control" placeholder="Ingrese el nombre del comprador" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="LastName" class="form-label">Apellido</label>
+                <input asp-for="LastName" class="form-control" placeholder="Ingrese el apellido del comprador" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CardNumber" class="form-label">Número de Tarjeta</label>
+                <input asp-for="CardNumber" class="form-control" maxlength="16" placeholder="Ingrese el número de tarjeta" />
+                <span asp-validation-for="CardNumber" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CardExpiry" class="form-label">Fecha de Expiración</label>
+                <input asp-for="CardExpiry" type="month" class="form-control" />
+                <span asp-validation-for="CardExpiry" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CardCVV" class="form-label">CVV</label>
+                <input asp-for="CardCVV" class="form-control" maxlength="3" placeholder="Ingrese el CVV" />
+                <span asp-validation-for="CardCVV" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label">Dirección</label>
+                <textarea asp-for="Address" class="form-control" rows="3" placeholder="Ingrese la dirección del comprador"></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-primary">Registrar Venta</button>
+                <a asp-action="IndexSales" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

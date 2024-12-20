@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 // 1
 builder.Services.AddScoped<PeliculasDAO>();
 builder.Services.AddTransient<CarritoDAO>();
+builder.Services.AddTransient<SalesDAO>();
 
 // 2: Establecer el tiempo de duracion de las variables de sesión
 builder.Services.AddSession(
