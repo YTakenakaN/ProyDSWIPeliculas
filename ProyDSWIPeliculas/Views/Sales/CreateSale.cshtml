@@ -52,32 +52,32 @@
 
             <h5 class="mt-4">Información del Comprador</h5>
             <div class="mb-3">
-                <label asp-for="FirstName" class="form-label">Nombre</label>
+                <label asp-for="FirstName" class="form-label">Nombre <span style="color:red;">(*)</span></label>
                 <input asp-for="FirstName" class="form-control" placeholder="Ingrese el nombre del comprador" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="LastName" class="form-label">Apellido</label>
+                <label asp-for="LastName" class="form-label">Apellido <span style="color:red;">(*)</span></label>
                 <input asp-for="LastName" class="form-control" placeholder="Ingrese el apellido del comprador" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="CardNumber" class="form-label">Número de Tarjeta</label>
+                <label asp-for="CardNumber" class="form-label">Número de Tarjeta <span style="color:red;">(*)</span></label>
                 <input asp-for="CardNumber" class="form-control" maxlength="16" placeholder="Ingrese el número de tarjeta" />
                 <span asp-validation-for="CardNumber" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="CardExpiry" class="form-label">Fecha de Expiración</label>
+                <label asp-for="CardExpiry" class="form-label">Fecha de Expiración <span style="color:red;">(*)</span></label>
                 <input asp-for="CardExpiry" type="month" class="form-control" />
                 <span asp-validation-for="CardExpiry" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="CardCVV" class="form-label">CVV</label>
+                <label asp-for="CardCVV" class="form-label">CVV <span style="color:red;">(*)</span></label>
                 <input asp-for="CardCVV" class="form-control" maxlength="3" placeholder="Ingrese el CVV" />
                 <span asp-validation-for="CardCVV" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Address" class="form-label">Dirección</label>
+                <label asp-for="Address" class="form-label">Dirección <span style="color:red;">(*)</span></label>
                 <textarea asp-for="Address" class="form-control" rows="3" placeholder="Ingrese la dirección del comprador"></textarea>
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>

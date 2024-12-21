@@ -5,10 +5,12 @@ namespace ProyDSWIPeliculas.DAO
     public class SalesDAO
     {
         private string cad_cn;
+        private  CarritoDAO carritoDao;
 
         public SalesDAO(IConfiguration cfg)
         {
             cad_cn = cfg.GetConnectionString("cn2");
+            carritoDao = new CarritoDAO(cfg);   
 
         }
 
@@ -59,7 +61,7 @@ namespace ProyDSWIPeliculas.DAO
                         address
                     );
                 }
-
+                carritoDao.EliminarTodoCarrito();
                 return $"Venta registrada con éxito bajo el número de orden {orderNumber}.";
             }
             catch (Exception ex)

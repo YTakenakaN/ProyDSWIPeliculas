@@ -75,5 +75,17 @@ namespace ProyDSWIPeliculas.DAO
                 throw new Exception("Error al eliminar del carrito: " + ex.Message);
             }
         }
+
+        public void EliminarTodoCarrito()
+        {
+            try
+            {
+                SqlHelper.ExecuteNonQuery(cad_cn, "PA_ELIMINAR_TODO_CARRITO", null);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar carrito: " + ex.Message);
+            }
+        }
     }
 }
